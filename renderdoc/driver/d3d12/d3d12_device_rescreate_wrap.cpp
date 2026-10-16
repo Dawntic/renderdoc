@@ -264,6 +264,9 @@ bool WrappedID3D12Device::Serialise_CreateResource(
   if(desc.Flags & D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS)
     m_ModResources.insert(GetResID(ret));
 
+  if(pHeap && desc.Dimension == D3D12_RESOURCE_DIMENSION_BUFFER)
+    m_ModResources.insert(GetResID(pHeap));
+
   SubresourceStateVector &states = m_ResourceStates[GetResID(ret)];
   states.fill(GetNumSubresources(m_pDevice, &desc), InitialLayout);
 
